@@ -1,4 +1,4 @@
-# HA_Solar_State_Lamps
+# Home Assistant Solar Power State Lamps
 Use 3 RGB lights to indicate solar power, battery charge, and system load on Home Assistant.
 
 The intent is to give the family a convenient display of lights that informs them of the current state of the solar power system at a glance. The current implementation uses 3 RGB Athom bulbs dangling from a pendant fitting in the main foyer. When they are all red, the family should not use power-hungry devices.
