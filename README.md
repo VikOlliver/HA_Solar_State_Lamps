@@ -14,3 +14,27 @@ The middle bulb uses rgb_bulb_as_battery_status.yaml to indicate the battery cha
 The lower bulb is controlled by rgb_bulb_as_load.yaml which is green with low load, fading to red at high load.
 
 These scripts use the [Sungrow WiNet S/WiNet S2 Extraction Tool](http://homeassistant.local:8123/hassio/addon/b3e7ace5_winet-extractor/info) to extract the status of a solar inverter system, though other sensors can certainly be used. I am no expert in YAML at this point, so apologies for the code. I took heavy inspiration from the "Powerhue" blueprint.
+
+The sensor used is defined in the "variables section". Unfortunately the variables are sometimes aspirational and hard-coded values are used simply because I have not yet learned enough YAML - "energy_lights" for example, I could nto get to work as a variable, so you'll need to change that manually.
+
+<code>variables:
+  power_sensor: sensor.sh15t_a2452418716_total_load_active_power
+  power_threshold_low: 0
+  power_threshold_high: 7
+  default_power_low: 0
+  default_power_high: 0.1
+  rest_color:
+    - 0
+    - 0
+    - 0
+  rest_brightness: 0
+  active_brightness: 138
+  current_power: "{{ states(power_sensor) | float }}"
+  update_interval: 20
+  energy_lights: light.athom_rgbct_light_9adff8_rgbcct_bulb</code>
+
+  The power thresholds indicate the expected range of sensor values. The default power represents the point at which the bulb gives up on being a power meter and goes out (or turns into a nightlight) etc.
+
+  To install these scripts I just created a new Automaton, went into "edit YAML" and copy pasted the stuff I'd written.
+
+  Good luck and keep the lights burning.
