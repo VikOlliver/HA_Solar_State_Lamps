@@ -1,0 +1,81 @@
+alias: RGB Bulb As Solar Power Meter
+description: Change an RGB light to reflect solar power
+triggers:
+  - seconds: /20
+    trigger: time_pattern
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: |-
+              {{ current_power >= default_power_low and  
+                 current_power < default_power_high }}  
+        sequence:
+          - if:
+              - condition: time
+                after: "21:00:00"
+                before: "07:00:00"
+                weekday:
+                  - mon
+                  - tue
+                  - wed
+                  - thu
+                  - fri
+                  - sat
+                  - sun
+            then:
+              - target:
+                  entity_id: light.athom_rgbct_light_da1e5c_rgbcct_bulb
+                data:
+                  rgb_color:
+                    - 250
+                    - 133
+                    - 0
+                  brightness: 100
+                  transition: 4
+                action: light.turn_on
+            else:
+              - action: light.turn_on
+                metadata: {}
+                data:
+                  rgb_color:
+                    - 255
+                    - 255
+                    - 255
+                  brightness_pct: 95
+                target:
+                  entity_id: light.athom_rgbct_light_da1e5c_rgbcct_bulb
+      - conditions:
+          - condition: template
+            value_template: |-
+              {{ current_power > power_threshold_low and  
+                 current_power <= power_threshold_high }}  
+        sequence:
+          - target:
+              entity_id: light.athom_rgbct_light_da1e5c_rgbcct_bulb
+            data:
+              hs_color:
+                - >-
+                  {{ ((current_power / power_threshold_high) * 150) | round(0)
+                  }}  
+                - 100
+              brightness: 138
+              transition: 4
+            action: light.turn_on
+mode: single
+variables:
+  power_sensor: sensor.sh15t_a2452418716_mppt_total_power
+  power_threshold_low: 0
+  power_threshold_high: 8000
+  default_power_low: 0
+  default_power_high: 10
+  rest_color:
+    - 100
+    - 100
+    - 10
+  rest_brightness: 0
+  active_brightness: 138
+  current_power: "{{ states(power_sensor) | float }}"
+  update_interval: 20
+  energy_lights: light.athom_rgbct_light_da1e5c_rgbcct_bulb
