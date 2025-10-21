@@ -5,7 +5,7 @@ The intent is to give the family a convenient display of lights that informs the
 
 <img width="431" height="610" alt="image" src="https://github.com/user-attachments/assets/aad38f4e-2907-4c5b-9de1-87e7fe5a7939" />
 
-The lights are driven by three scripts, each one behaving in a different way to provide an intuitive red/yellow/green scale.
+The lights are driven by three scripts, each one behaving in a different way to provide an intuitive red/yellow/green scale. Here the lights indicate low solar generation on the roof (red), half-full battery (yellow), and low system load (green).
 
 The top bulb is controlled by the rgb_bulb_as_meter.yaml automation script and indicates solar power generation. When power generation is low, the bulb is red. When high, it slowly turns greener through yellow, and if exceptionally high will turn gradually blue. When zero power is generated the bulb turns white. After 10pm the bulb turns a dim amber and acts as a night light.
 
