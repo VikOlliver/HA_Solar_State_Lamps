@@ -1,0 +1,61 @@
+alias: RGB As battery charge meter
+description: Change an RGB light to reflect a sensor value
+triggers:
+  - seconds: /20
+    trigger: time_pattern
+conditions:
+  - condition: template
+    value_template: |-
+      {{ current_power > power_threshold_low and  
+         current_power <= power_threshold_high }}  
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: |-
+              {{ current_power >= default_power_low and  
+                 current_power < default_power_high }}  
+        sequence:
+          - target:
+              entity_id: "{{ energy_lights }}"
+            data:
+              rgb_color:
+                - 150
+                - 5
+                - 0
+              brightness: 130
+              transition: 4
+            action: light.turn_on
+      - conditions:
+          - condition: template
+            value_template: |-
+              {{ current_power > power_threshold_low and  
+                 current_power <= power_threshold_high }}  
+        sequence:
+          - target:
+              entity_id: "{{ energy_lights }}"
+            data:
+              hs_color:
+                - >-
+                  {{ ((0+(current_power / power_threshold_high)) * 120) |
+                  round(0) }}  
+                - 100
+              brightness: 138
+              transition: 4
+            action: light.turn_on
+mode: single
+variables:
+  power_sensor: sensor.sh15t_a2452418716_battery_level_soc
+  power_threshold_low: 0
+  power_threshold_high: 101
+  default_power_low: 0
+  default_power_high: 11
+  rest_color:
+    - 90
+    - 0
+    - 0
+  rest_brightness: 0
+  active_brightness: 138
+  current_power: "{{ states(power_sensor) | float }}"
+  update_interval: 20
+  energy_lights: light.athom_rgbct_light_da1f1c_rgbcct_bulb
