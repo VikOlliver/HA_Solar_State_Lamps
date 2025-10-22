@@ -35,6 +35,6 @@ The sensor used is defined in the "variables" section. Unfortunately the variabl
 
   The power thresholds indicate the expected range of sensor values. The default power represents the point at which the bulb gives up on being a power meter and goes out (or turns into a nightlight) etc.
 
-  To install these scripts I just created a new Automaton, went into "edit YAML" and copy pasted the stuff I'd written.
+  To install these scripts I just created a new Automation, went into "edit YAML" and copy pasted the stuff I'd written.
 
   Good luck and keep the lights burning.
