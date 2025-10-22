@@ -15,7 +15,7 @@ The lower bulb is controlled by rgb_bulb_as_load.yaml which is green with low lo
 
 These scripts use the [Sungrow WiNet S/WiNet S2 Extraction Tool](http://homeassistant.local:8123/hassio/addon/b3e7ace5_winet-extractor/info) to extract the status of a solar inverter system, though other sensors can certainly be used. I am no expert in YAML at this point, so apologies for the code. I took heavy inspiration from the "Powerhue" blueprint.
 
-The sensor used is defined in the "variables section". Unfortunately the variables are sometimes aspirational and hard-coded values are used simply because I have not yet learned enough YAML - "energy_lights" for example, I could nto get to work as a variable, so you'll need to change that manually.
+The sensor used is defined in the "variables" section. Unfortunately the variables are sometimes aspirational and hard-coded values are used simply because I have not yet learned enough YAML - "energy_lights" for example, I could not get to work as a variable for some reason, so you'll need to change that manually.
 
 <code>variables:
   power_sensor: sensor.sh15t_a2452418716_total_load_active_power
