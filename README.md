@@ -18,7 +18,7 @@ These scripts use the [Sungrow WiNet S/WiNet S2 Extraction Tool](http://homeassi
 The sensor used is defined in the "variables" section. Unfortunately the variables are sometimes aspirational and hard-coded values are used simply because I have not yet learned enough YAML - "energy_lights" for example, I could not get to work as a variable for some reason, so you'll need to change that manually.
 
 <code>variables:
-  power_sensor: sensor.sh15t_a2452418716_total_load_active_power
+  power_sensor: sensor.sh15t_aXXXXXXXXXX_total_load_active_power
   power_threshold_low: 0
   power_threshold_high: 7
   default_power_low: 0
